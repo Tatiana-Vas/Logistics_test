@@ -1,8 +1,7 @@
-import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
-import json
 import os
+import pandas as pd
 
 
 # JSON files path
@@ -10,16 +9,9 @@ base_path = os.path.abspath(os.path.join(os.path.dirname(__file__), 'data'))
 rentals_file_path = os.path.join(base_path, 'rentals.json')
 wagons_file_path = os.path.join(base_path, 'wagons.json')
 
-# Loading data from JSON files
-with open(rentals_file_path, 'r', encoding='utf-8') as f:
-    rentals_data = json.load(f)
-
-with open(wagons_file_path, 'r', encoding='utf-8') as f:
-    wagons_data = json.load(f)
-
-# Creating DataFrame
-rentals = pd.DataFrame(rentals_data)
-wagons = pd.DataFrame(wagons_data)
+# Loading data from JSON files to DataFrame
+rentals = pd.read_json(rentals_file_path, encoding='utf-8')
+wagons = pd.read_json(wagons_file_path, encoding='utf-8')
 
 # Data type conversion
 rentals['start_date'] = pd.to_datetime(rentals['start_date'])
@@ -54,7 +46,7 @@ monthly_revenue['month'] = monthly_revenue['month'].dt.strftime('%B %Y')
 plt.figure(figsize=(10, 6))
 sns.lineplot(data=monthly_revenue, x='month', y='cost', marker='o')
 plt.title('Изменение общей выручки по месяцам')
-plt.xlabel('Месяц', loc='right')
+plt.xlabel('Месяц', labelpad=15)
 plt.ylabel('Общая выручка')
 plt.grid(True)
 plt.show()
@@ -96,7 +88,7 @@ print(avg_cost_per_day_by_wagon_type)
 plt.figure(figsize=(10, 6))
 sns.barplot(data=revenue_by_wagon_type, x='wagon_type', y='cost')
 plt.title('Общая выручка по типам вагонов')
-plt.xlabel('Тип вагона', loc='right')
+plt.xlabel('Тип вагона', labelpad=15)
 plt.ylabel('Общая выручка')
 plt.grid(True)
 plt.show()
@@ -105,7 +97,7 @@ plt.show()
 plt.figure(figsize=(10, 6))
 sns.barplot(data=rental_count_by_wagon_type, x='wagon_type', y='rental_count')
 plt.title('Количество аренд по типам вагонов')
-plt.xlabel('Тип вагона', loc='right')
+plt.xlabel('Тип вагона', labelpad=15)
 plt.ylabel('Количество аренд')
 plt.grid(True)
 plt.show()
@@ -114,7 +106,7 @@ plt.show()
 plt.figure(figsize=(10, 6))
 sns.barplot(data=avg_cost_per_day_by_wagon_type, x='wagon_type', y='cost_per_day')
 plt.title('Средняя стоимость аренды в день по типам вагонов')
-plt.xlabel('Тип вагона', loc='right')
+plt.xlabel('Тип вагона', labelpad=15)
 plt.ylabel('Средняя стоимость аренды в день')
 plt.grid(True)
 plt.show()
