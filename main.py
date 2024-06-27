@@ -4,14 +4,14 @@ import os
 import pandas as pd
 
 
-# JSON files path
+# Excel files path
 base_path = os.path.abspath(os.path.join(os.path.dirname(__file__), 'data'))
-rentals_file_path = os.path.join(base_path, 'rentals.json')
-wagons_file_path = os.path.join(base_path, 'wagons.json')
+rentals_file_path = os.path.join(base_path, 'rentals.xlsx')
+wagons_file_path = os.path.join(base_path, 'wagons.xlsx')
 
-# Loading data from JSON files to DataFrame
-rentals = pd.read_json(rentals_file_path, encoding='utf-8')
-wagons = pd.read_json(wagons_file_path, encoding='utf-8')
+# Loading data from files
+rentals = pd.read_excel(rentals_file_path)
+wagons = pd.read_excel(wagons_file_path)
 
 # Data type conversion
 rentals['start_date'] = pd.to_datetime(rentals['start_date'])
